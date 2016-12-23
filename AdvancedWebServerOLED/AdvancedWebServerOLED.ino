@@ -36,19 +36,18 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-DHT dht(DHTPIN, DHTTYPE,12);
-// this constant won't change:
-const int  buttonPinIP = 0;        //This will show your IP
-const int  buttonPinTemp = 16;     //This will show your Temp
-const char* ssid = "SSID";
-const char* password = "Password";
-const char* DeviceName = "Location";
-const int   DeviceID   = 1;       // This is for My Specific use case
+DHT dht(DHTPIN, DHTTYPE,12);             // this constant won't change:
+const int buttonPinIP   = 0;             // This will show your IP
+const int buttonPinTemp = 16;            // This will show your Temp
+const char* ssid        = "SSID";        // Enter your SSID
+const char* password    = "password";    // Enter your Password
+const char* DeviceName  = "Device Name"; // Enter your Device Name
+const int   DeviceID    = 1;             // This is for My Specific use case
 
-int buttonStateIP = LOW;         // current state of the button
-int lastButtonStateIP = HIGH;     // previous state of the button
-int buttonStateTemp = LOW;         // current state of the button
-int lastButtonStateTemp = HIGH;     // previous state of the button
+int buttonStateIP = LOW;                 // current state of the button
+int lastButtonStateIP = HIGH;            // previous state of the button
+int buttonStateTemp = LOW;               // current state of the button
+int lastButtonStateTemp = HIGH;          // previous state of the button
 
 WiFiServer server(80);
 
@@ -122,18 +121,18 @@ bool readRequest(WiFiClient& client) {
 
 JsonObject& prepareResponse(JsonBuffer& jsonBuffer) {
   JsonObject& root = jsonBuffer.createObject();
-  JsonArray& DeviceName = root.createNestedArray("DeviceName");
-    DeviceName.add(DeviceName);
-  JsonArray& DeviceID = root.createNestedArray("DeviceID");
-    InfoValues.add(DeviceID);
-  JsonArray& tempF = root.createNestedArray("tempF");
-    tempF.add(pfTempF);
-  JsonArray& tempF = root.createNestedArray("tempC");
-    tempC.add(pfTemp);
-  JsonArray& humiValues = root.createNestedArray("humidity");
-    humiValues.add(pfHum);
-  JsonArray& dewpValues = root.createNestedArray("dewpoint");
-    dewpValues.add(pfDew);
+  JsonArray& JSONDeviceName = root.createNestedArray("DeviceName");
+    JSONDeviceName.add(DeviceName);
+  JsonArray& JSONDeviceID = root.createNestedArray("DeviceID");
+    JSONDeviceID.add(DeviceID);
+  JsonArray& JSONtempF = root.createNestedArray("tempF");
+    JSONtempF.add(pfTempF);
+  JsonArray& JSONtempC = root.createNestedArray("tempC");
+    JSONtempC.add(pfTemp);
+  JsonArray& JSONhumiValues = root.createNestedArray("humidity");
+    JSONhumiValues.add(pfHum);
+  JsonArray& JSONdewpValues = root.createNestedArray("dewpoint");
+    JSONdewpValues.add(pfDew);
   return root;
 }
 
