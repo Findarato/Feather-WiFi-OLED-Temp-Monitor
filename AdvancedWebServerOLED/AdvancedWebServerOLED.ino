@@ -43,18 +43,12 @@ const int  buttonPinTemp = 16;     //This will show your Temp
 const char* ssid = "SSID";
 const char* password = "Password";
 const char* DeviceName = "Location";
+const int   DeviceID   = 1;       // This is for My Specific use case
 
 int buttonStateIP = LOW;         // current state of the button
 int lastButtonStateIP = HIGH;     // previous state of the button
 int buttonStateTemp = LOW;         // current state of the button
 int lastButtonStateTemp = HIGH;     // previous state of the button
-
-// needed to avoid link error on ram check
-extern "C" {
-#include "user_interface.h"
-uint16 readvdd33(void);
-}
-ADC_MODE(ADC_VCC);
 
 WiFiServer server(80);
 
@@ -128,19 +122,18 @@ bool readRequest(WiFiClient& client) {
 
 JsonObject& prepareResponse(JsonBuffer& jsonBuffer) {
   JsonObject& root = jsonBuffer.createObject();
-  JsonArray& InfoValues = root.createNestedArray("Info");
-    InfoValues.add("1");
-    InfoValues.add(DeviceName);
-  JsonArray& tempValues = root.createNestedArray("temperature");
-    tempValues.add(pfTemp);
-    tempValues.add(pfTempF);
+  JsonArray& DeviceName = root.createNestedArray("DeviceName");
+    DeviceName.add(DeviceName);
+  JsonArray& DeviceID = root.createNestedArray("DeviceID");
+    InfoValues.add(DeviceID);
+  JsonArray& tempF = root.createNestedArray("tempF");
+    tempF.add(pfTempF);
+  JsonArray& tempF = root.createNestedArray("tempC");
+    tempC.add(pfTemp);
   JsonArray& humiValues = root.createNestedArray("humidity");
     humiValues.add(pfHum);
   JsonArray& dewpValues = root.createNestedArray("dewpoint");
     dewpValues.add(pfDew);
-  JsonArray& EsPvValues = root.createNestedArray("Systemv");
-    EsPvValues.add(pfVcc/1000,3);
-    EsPvValues.add(battery/1000,3);
   return root;
 }
 
