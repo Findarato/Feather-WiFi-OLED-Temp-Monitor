@@ -1,9 +1,11 @@
 #include <SPI.h>
 #include <Wire.h>
 #include <ArduinoJson.h>
+#include <Adafruit_Sensor.h>
 #include <ESP8266WiFi.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+
 #include "DHT.h"
 
 // Defines
@@ -44,9 +46,9 @@ const char* password    = "password";    // Enter your Password
 const char* DeviceName  = "Device Name"; // Enter your Device Name
 const int   DeviceID    = 1;             // This is for My Specific use case
 
-int buttonStateIP = LOW;                 // current state of the button
-int lastButtonStateIP = HIGH;            // previous state of the button
-int buttonStateTemp = LOW;               // current state of the button
+int buttonStateIP       = LOW;           // current state of the button
+int lastButtonStateIP   = HIGH;          // previous state of the button
+int buttonStateTemp     = LOW;           // current state of the button
 int lastButtonStateTemp = HIGH;          // previous state of the button
 
 WiFiServer server(80);
@@ -177,7 +179,6 @@ void setup() {
     display.display();
   }
 
-
   dht.begin();
 
   connectionInfo();
@@ -187,7 +188,7 @@ void setup() {
   server.begin();
   Serial.println("Server started");
 
-// initialize the button pin as a input:
+  // initialize the button pin as a input:
   pinMode(buttonPinIP, INPUT_PULLUP);
   pinMode(buttonPinTemp, INPUT_PULLUP);
 
@@ -208,9 +209,6 @@ void loop() {
       delay(1);
       client.stop();
   }
-
-
-
 
   // read the pushbutton input pin:
   buttonStateIP = digitalRead(buttonPinIP);
