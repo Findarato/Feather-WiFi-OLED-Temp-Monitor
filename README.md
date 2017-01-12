@@ -1,5 +1,7 @@
 # Web Accessable Temperature gague /w OLED readout
 
+[![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+
 ## Now with Toggle switches
 
 A :radio_button: Shows IP<br>
