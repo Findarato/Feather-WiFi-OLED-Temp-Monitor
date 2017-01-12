@@ -9,9 +9,15 @@ before_install:
   - sudo ln -s /usr/local/share/arduino/arduino /usr/local/bin/arduino
 install:
   #- arduino --install-boards http://arduino.esp8266.com/stable/package_esp8266com_index.json
+  - arduino --pref "boardsmanager.additional.urls=http://arduino.esp8266.com/stable/package_esp8266com_index.json" --save-prefs
+  - arduino --board esp8266:esp8266:generic --save-prefs
   - arduino --install-library 'Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor'
 script:
   - arduino --verify --board esp8266:esp8266:huzzah $PWD/AdvancedWebServerOLED/AdvancedWebServerOLED.ino
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
 notifications:
   email:
     on_success: change
