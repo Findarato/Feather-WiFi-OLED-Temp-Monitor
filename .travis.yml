@@ -6,7 +6,8 @@ install:
 script:
   - /bin/cat $PWD/AdvancedWebServerOLED/Pubvars.h.temp > $PWD/AdvancedWebServerOLED/Pubvars.h
   - build_platform esp8266
-  - clang -coverage -O0 $PWD/AdvancedWebServerOLED/Pubvars.cpp -o Pubvars
+  - gcc -coverage -O0 $PWD/AdvancedWebServerOLED/Pubvars.cpp -o Pubvars
+  - gcov $PWD/AdvancedWebServerOLED/Pubvars.cpp
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 notifications:

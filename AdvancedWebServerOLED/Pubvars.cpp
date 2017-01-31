@@ -4,7 +4,6 @@
  * Released GPL 3
  */
 
-#include "Arduino.h"
 #include "Pubvars.h"
 
 const char* Varstore::readSSID(){
