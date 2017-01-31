@@ -3,7 +3,6 @@ before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 install:
   - arduino --install-library 'Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor'
-
 script:
   - bash cp Pubvars.h.temp Pubvars.h
   - build_platform esp8266
