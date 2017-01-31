@@ -1,14 +1,16 @@
 language: c
+sudo: false
 before_install:
   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 install:
   - arduino --install-library 'Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor'
 script:
-  - bash cp Pubvars.h.temp Pubvars.h
+  - bash /bin/cp Pubvars.h.temp Pubvars.h
+  - /bin/cat Pubvars.h.temp > Pubvars.h
   - build_platform esp8266
+  - clang -coverage -O0 hello.c -o hello
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - codecov
 notifications:
   email:
     on_success: change
