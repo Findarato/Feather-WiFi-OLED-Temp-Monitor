@@ -170,8 +170,15 @@ void setup() {
         display.display();
         while (WiFi.status() != WL_CONNECTED) {
                 delay(500);
-                Serial.print(".");
+                Serial.print("");
                 Serial.println("");
+                Serial.print("Connecting to: ");
+                Serial.print(vault.readSSID());
+                Serial.println("");
+                Serial.print("Password: ");
+                Serial.print(vault.readPassword());
+                Serial.println("");
+                Serial.print(WiFi.status());
                 display.clearDisplay();
                 display.setTextColor(WHITE);
                 display.setCursor(0,0);

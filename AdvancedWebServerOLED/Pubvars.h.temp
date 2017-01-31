@@ -6,7 +6,7 @@
 #ifndef Pubvars_h
 #define Pubvars_h
 
-#include "Arduino.h"
+// #include "Arduino.h"
 
 class Varstore {
 public:
