@@ -7,12 +7,23 @@
 #include <Adafruit_SSD1306.h>
 #include "DHT.h"
 #include "Pubvars.h"
+// needed to avoid link error on ram check
+extern "C" {
+#include "user_interface.h"
+uint16 readvdd33(void);
+}
+ADC_MODE(ADC_VCC);
+
 
 // Defines
 #define DHTPIN 14
 #define DHTTYPE DHT21   // DHT 21 (AM2301)
 #define OLED_RESET 3
 Adafruit_SSD1306 display(OLED_RESET);
+
+//Button A is #0
+//Button B is #16
+//Button C is #2
 
 #define LOGO16_GLCD_HEIGHT 16
 #define LOGO16_GLCD_WIDTH  16
@@ -43,7 +54,7 @@ int buttonStateIP       = LOW;                  // current state of the button
 int lastButtonStateIP   = HIGH;                 // previous state of the button
 int buttonStateTemp     = LOW;                  // current state of the button
 int lastButtonStateTemp = HIGH;                 // previous state of the button
-
+bool toggleDisplay      = false;                // Turns the display on or off
 Varstore vault;
 
 WiFiServer server(vault.readServerPort());
@@ -105,7 +116,13 @@ void readTempValues() {
         Serial.println(pfHum);
         Serial.println(pfDew);
 }
-
+void showDisplay(){
+    if(toggleDisplay){ //The display is to be shown
+        toggleDisplay = false;
+    } else { // We should hide the display
+        toggleDisplay = true;
+    }
+}
 bool readRequest(WiFiClient& client) {
         bool currentLineIsBlank = true;
         while (client.connected()) {
@@ -137,6 +154,9 @@ JsonObject& prepareResponse(JsonBuffer& jsonBuffer) {
         JSONhumiValues.add(pfHum);
         JsonArray& JSONdewpValues = root.createNestedArray("dewpoint");
         JSONdewpValues.add(pfDew);
+        JsonArray& JSONsystemV = root.createNestedArray("Systemv");
+        JSONsystemV.add(pfVcc/1000,3);
+        JSONsystemV.add(battery/1000,3);
         return root;
 }
 
@@ -169,15 +189,15 @@ void setup() {
         display.println("Startup Temp IoT Thingy");
         display.display();
         while (WiFi.status() != WL_CONNECTED) {
-                delay(500);
+                delay(2000);
                 Serial.print("");
                 Serial.println("");
                 Serial.print("Connecting to: ");
                 Serial.print(vault.readSSID());
                 Serial.println("");
-                Serial.print("Password: ");
-                Serial.print(vault.readPassword());
-                Serial.println("");
+                // Serial.print("Password: ");
+                // Serial.print(vault.readPassword());
+                // Serial.println("");
                 Serial.print(WiFi.status());
                 display.clearDisplay();
                 display.setTextColor(WHITE);
@@ -190,7 +210,7 @@ void setup() {
         dht.begin();
 
         connectionInfo();
-        delay(2000);
+        delay(5000);
 
         // Start the server
         server.begin();
@@ -199,7 +219,6 @@ void setup() {
         // initialize the button pin as a input:
         pinMode(vault.readButtonPinIP(), INPUT_PULLUP);
         pinMode(vault.readButtonPinTemp(), INPUT_PULLUP);
-
 }
 
 void loop() {
@@ -213,22 +232,29 @@ void loop() {
                         JsonObject& json = prepareResponse(jsonBuffer);
                         writeResponse(client, json);
                 }
-                delay(1);
+                delay(10);
                 client.stop();
         }
 
         // read the pushbutton input pin:
         buttonStateIP = digitalRead(vault.readButtonPinIP());
         // compare the buttonState to its previous state
-        if (buttonStateIP != lastButtonStateIP) {
+        if (buttonStateIP != lastButtonStateIP && toggleDisplay) {
                 // if the state has changed, increment the counter
                 connectionInfo();
         }
 
         buttonStateTemp = digitalRead(vault.readButtonPinTemp());
         // compare the buttonState to its previous state
-        if (buttonStateTemp != lastButtonStateTemp) {
+        if (buttonStateTemp != lastButtonStateTemp && toggleDisplay) {
                 // if the state has changed, increment the counter
                 readTempValues();
+        }
+        // @TODO:This needs to be finished and the two buttons above need to work
+        buttonStateToggleDisplay = digitalRead(vault.readButtonPinDisplay());
+        // compare the buttonState to its previous state
+        if (buttonStateTemp != lastButtonStateTemp && !toggleDisplay) {
+                // if the state has changed, increment the counter
+                showDisplay();
         }
 }

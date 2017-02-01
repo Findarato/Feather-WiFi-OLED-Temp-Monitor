@@ -30,6 +30,10 @@ const int Varstore::readButtonPinTemp(){
     return _buttonPinTemp;
 }
 
+const int Varstore::readButtonPinDisplay(){
+    return _buttonPinDisplay;
+}
+
 const int Varstore::readServerPort(){
     return _webServerPort;
 }
