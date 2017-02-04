@@ -6,25 +6,26 @@
 #ifndef Pubvars_h
 #define Pubvars_h
 
-// #include "Arduino.h"
-
 class Varstore {
 public:
-    const char* readSSID(void);
-    const char* readPassword(void);
-    const char* readDeviceName(void);
-    const int readDeviceID(void);
-    const int readButtonPinIP(void);
-    const int readButtonPinTemp(void);
-    const int readServerPort(void);
+const char* readSSID(void);
+const char* readPassword(void);
+const char* readDeviceName(void);
+const int readDeviceID(void);
+const int readButtonPinIP(void);
+const int readButtonPinTemp(void);
+const int readButtonPinDisplay(void);
+const int readServerPort(void);
 
 private:
-    const int _buttonPinIP     = 0;                    // This will show your IP
-    const int _buttonPinTemp   = 16;                   // This will show your Temp
-    const char* _ssid          = "SSID";               // Enter your SSID
-    const char* _password      = "PASSWORD";           // Enter your Password
-    const char* _deviceName    = "LOCATION";           // Enter your Device Name
-    const int _deviceID        = 2;                    // This is for My Specific use case
-    const int _webServerPort   = 80;                   // The port for web server
+const int _buttonPinIP          =   0;                          // This will show your IP
+const int _buttonPinTemp        =   16;                         // This will show your Temp
+const int _buttonPinDisplay     =   16;                         // This will show your Temp
+const char* _ssid               =   "SSID";                     // Enter your SSID
+const char* _password           =   "PASSWORD";                 // Enter your Password
+const char* _deviceName         =   "NAME";                     // Enter your Device Name
+const int _deviceID             =   0;                          // This is for My Specific use case
+const int _webServerPort        =   80;                         // The port for web server
+char* _hardwareID               =   "00:00:00:00:00:00:00";     //MAC Address of the board
 };
 #endif

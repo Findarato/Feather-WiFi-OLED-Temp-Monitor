@@ -3,6 +3,8 @@
 #include <ArduinoJson.h>
 #include <Adafruit_Sensor.h>
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
+#include <ESP8266WebServer.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include "DHT.h"
@@ -49,19 +51,38 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
 #error ("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
 
-DHT dht(DHTPIN, DHTTYPE,12);                    // this constant won't change:
-int buttonStateIP       = LOW;                  // current state of the button
-int lastButtonStateIP   = HIGH;                 // previous state of the button
-int buttonStateTemp     = LOW;                  // current state of the button
-int lastButtonStateTemp = HIGH;                 // previous state of the button
-bool toggleDisplay      = false;                // Turns the display on or off
+DHT dht(DHTPIN, DHTTYPE,12);                        // this constant won't change:
+int buttonStateIP                   = LOW;          // current state of the button
+int lastButtonStateIP               = HIGH;         // previous state of the button
+int buttonStateTemp                 = LOW;          // current state of the button
+int lastButtonStateTemp             = HIGH;         // previous state of the button
+int buttonStateToggleDisplay        = LOW;         // current state of the button
+int lastButtonStateToggleDisplay    = HIGH;          // last state of the botton
+bool toggleDisplay                  = true;        // Turns the display on or off
+int tracker                         = 0;            // How many times it has tried to connect
+byte mac[6];                                        // the MAC address of your Wifi shield
+String hardwareID;                                  // Display of the mac address
 Varstore vault;
+int lastArea                        = 9;
 
 WiFiServer server(vault.readServerPort());
 
-float pfDew,pfHum,pfTemp,pfVcc,pfTempF,battery;
+float pfDew,pfHum,pfTemp,pfVcc,pfTempF,battery;     // Setting up some variable states
+
+
+String macToStr(const uint8_t* mac)
+{
+String result;
+for (int i = 0; i < 6; ++i) {
+result += String(mac[i], 16);
+if (i < 5)
+result += ':';
+}
+return result;
+}
 
 void connectionInfo () {
+    if(lastArea != 0){
         display.clearDisplay();
         display.display();
         display.setTextSize(1);
@@ -69,9 +90,14 @@ void connectionInfo () {
         display.setCursor(0,0);
         display.println(vault.readSSID());
         display.println(WiFi.localIP());
-        display.println("Device Location");
-        display.print(vault.readDeviceName());
+        WiFi.macAddress(mac);
+        hardwareID = macToStr(mac);
+        // display.println("Device Location");
+        display.println(vault.readDeviceName());
+        // display.println("");
+        display.println(hardwareID);
         display.display();
+    }
 }
 /**
  * Display Temperature data to OLED screen
@@ -79,6 +105,7 @@ void connectionInfo () {
  */
 void displayTempValues(){
         if( pfTemp > 0) { // We are only going to show data if we have data
+            if(lastArea !=1){
                 display.clearDisplay();
                 display.display();
                 display.setCursor(0,0);
@@ -93,6 +120,7 @@ void displayTempValues(){
                 display.print("Duepoint: ");
                 display.println(pfDew);
                 display.display();
+            }
         }
 }
 /**
@@ -110,19 +138,22 @@ void readTempValues() {
 
         pfDew = pfTemp - ((100 - pfHum )/5);
 
-        // Td = T - ((100 - RH)/5.)
+        displayTempValues();
+
+
         Serial.println(pfTemp);
         Serial.println(pfTempF);
         Serial.println(pfHum);
         Serial.println(pfDew);
 }
 void showDisplay(){
-    if(toggleDisplay){ //The display is to be shown
-        toggleDisplay = false;
-    } else { // We should hide the display
-        toggleDisplay = true;
-    }
+        if(toggleDisplay) { //The display is to be shown
+                toggleDisplay = false;
+        } else { // We should hide the display
+                toggleDisplay = true;
+        }
 }
+
 bool readRequest(WiFiClient& client) {
         bool currentLineIsBlank = true;
         while (client.connected()) {
@@ -145,7 +176,10 @@ JsonObject& prepareResponse(JsonBuffer& jsonBuffer) {
         JsonArray& JSONDeviceName = root.createNestedArray("DeviceName");
         JSONDeviceName.add(vault.readDeviceName());
         JsonArray& JSONDeviceID = root.createNestedArray("DeviceID");
+        // JSONDeviceID.add(vault.readDeviceID());
         JSONDeviceID.add(vault.readDeviceID());
+        JsonArray& JSONHardwareID = root.createNestedArray("HardwareID");
+        JSONHardwareID.add(hardwareID);
         JsonArray& JSONtempF = root.createNestedArray("tempF");
         JSONtempF.add(pfTempF);
         JsonArray& JSONtempC = root.createNestedArray("tempC");
@@ -170,24 +204,18 @@ void writeResponse(WiFiClient& client, JsonObject& json) {
 
 void setup() {
         Serial.begin(115200);
-        Serial.println("Starting Up!");
-        Serial.println();
-        Serial.println();
         Serial.print("Connecting to ");
         Serial.println(vault.readSSID());
         delay(100);
-
         // Connect to WiFi network
         WiFi.begin(vault.readSSID(), vault.readPassword());
-
+        WiFi.softAPdisconnect();
         // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
         display.begin(SSD1306_SWITCHCAPVCC, 0x3C); // initialize with the I2C addr 0x3C (for the 128x32)
         delay(200);
 
         // Clear the buffer.
         display.clearDisplay();
-        display.println("Startup Temp IoT Thingy");
-        display.display();
         while (WiFi.status() != WL_CONNECTED) {
                 delay(2000);
                 Serial.print("");
@@ -198,13 +226,23 @@ void setup() {
                 // Serial.print("Password: ");
                 // Serial.print(vault.readPassword());
                 // Serial.println("");
+                Serial.print("Status: ");
                 Serial.print(WiFi.status());
+                Serial.println("");
+                Serial.print("IP Address: ");
+                Serial.print(WiFi.localIP());
+                Serial.println("");
+                Serial.print("Loop: ");
+                Serial.print(tracker);
+                Serial.println("");
+
                 display.clearDisplay();
                 display.setTextColor(WHITE);
                 display.setCursor(0,0);
                 display.println("Connecting to: ...");
                 display.println(vault.readSSID());
                 display.display();
+                tracker++;
         }
 
         dht.begin();
@@ -219,42 +257,49 @@ void setup() {
         // initialize the button pin as a input:
         pinMode(vault.readButtonPinIP(), INPUT_PULLUP);
         pinMode(vault.readButtonPinTemp(), INPUT_PULLUP);
+        pinMode(vault.readButtonPinDisplay(), INPUT_PULLUP);
 }
 
 void loop() {
         WiFiClient client = server.available();
-        if (client) {
+        if (client) { // We have a client connected
                 bool success = readRequest(client);
                 if (success) {
-                        delay(1000);
+                        delay(1000); // Wait a second to ensure that we do not overload the seonsor
                         readTempValues();
                         StaticJsonBuffer<500> jsonBuffer;
                         JsonObject& json = prepareResponse(jsonBuffer);
                         writeResponse(client, json);
                 }
-                delay(10);
+                delay(10); // pause 10 milliseconds and then kill the connection
                 client.stop();
         }
 
         // read the pushbutton input pin:
         buttonStateIP = digitalRead(vault.readButtonPinIP());
         // compare the buttonState to its previous state
-        if (buttonStateIP != lastButtonStateIP && toggleDisplay) {
+        if (buttonStateIP != lastButtonStateIP) {
                 // if the state has changed, increment the counter
                 connectionInfo();
+                lastArea = 0;
         }
 
         buttonStateTemp = digitalRead(vault.readButtonPinTemp());
         // compare the buttonState to its previous state
-        if (buttonStateTemp != lastButtonStateTemp && toggleDisplay) {
+        if (buttonStateTemp != lastButtonStateTemp) {
                 // if the state has changed, increment the counter
                 readTempValues();
+                lastArea = 1;
         }
         // @TODO:This needs to be finished and the two buttons above need to work
         buttonStateToggleDisplay = digitalRead(vault.readButtonPinDisplay());
         // compare the buttonState to its previous state
-        if (buttonStateTemp != lastButtonStateTemp && !toggleDisplay) {
+        if (buttonStateToggleDisplay != lastButtonStateToggleDisplay ) {
                 // if the state has changed, increment the counter
                 showDisplay();
+                lastArea = 2;
         }
+        // Serial.print("lastArea: ");
+        // Serial.println(lastArea);
+
 }

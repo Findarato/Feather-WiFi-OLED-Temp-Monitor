@@ -6,6 +6,10 @@
 
 #include "Pubvars.h"
 
+/**
+ * Getters
+ */
+
 const char* Varstore::readSSID(){
     return _ssid;
 }
@@ -36,4 +40,27 @@ const int Varstore::readButtonPinDisplay(){
 
 const int Varstore::readServerPort(){
     return _webServerPort;
+}
+
+/**
+ * Returns hardwareID variable`
+ * @method Varstore::readHardwareID
+ * @return MAC Address
+ */
+char* Varstore::readHardwareID() {
+    return _hardwareID;
+}
+
+/**
+ * Setters
+ */
+
+/**
+ * Method to set the hardwareID or MAC address
+ * @method Varstore::setHardwareID
+ * @param  id                      MAC Address (00:00:00:00:00:00:00)
+ * @return                         [description]
+ */
+char* Varstore::setHardwareID(char* id) {
+    _hardwareID = id;
 }
