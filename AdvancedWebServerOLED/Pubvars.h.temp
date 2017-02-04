@@ -16,16 +16,18 @@ const int readButtonPinIP(void);
 const int readButtonPinTemp(void);
 const int readButtonPinDisplay(void);
 const int readServerPort(void);
+char* readHardwareID(void);
+char* setHardwareID(char* id);
 
 private:
 const int _buttonPinIP          =   0;                          // This will show your IP
 const int _buttonPinTemp        =   16;                         // This will show your Temp
-const int _buttonPinDisplay     =   16;                         // This will show your Temp
+const int _buttonPinDisplay     =   2;                          // This will show your Temp
 const char* _ssid               =   "SSID";                     // Enter your SSID
 const char* _password           =   "PASSWORD";                 // Enter your Password
-const char* _deviceName         =   "NAME";                     // Enter your Device Name
-const int _deviceID             =   0;                          // This is for My Specific use case
+const char* _deviceName         =   "DeviceID";                 // Enter your Device Name
+const int _deviceID             =   3;                          // This is for My Specific use case
 const int _webServerPort        =   80;                         // The port for web server
-char* _hardwareID               =   "00:00:00:00:00:00:00";     //MAC Address of the board
+char* _hardwareID;                                              //MAC Address of the board
 };
 #endif
