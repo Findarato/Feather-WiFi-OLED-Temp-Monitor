@@ -18,4 +18,4 @@ install:
     - platformio lib -g install 1
 #
 script:
-    - platformio ci --board=huzzah --lib="."
+    - platformio ci --project-conf=./platoformio.ini
