@@ -18,5 +18,5 @@ install:
     - platformio lib -g install 1
 #
 script:
-    - cp Pubvars.h.temp Pubvars.h
+    - cp ./src/Pubvars.h.temp ./src/Pubvars.h
     - platformio ci --project-conf=platformio.ini ./src
