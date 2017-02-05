@@ -16,6 +16,6 @@ cache:
 install:
     - pip install -U platformio
     - platformio lib -g install 1
-
+#
 script:
-    - platformio ci --board=<ID_1> --board=<ID_2> --board=<ID_N>
+    - platformio ci --board=huzzah
