@@ -18,4 +18,4 @@ install:
     - platformio lib -g install 1
 #
 script:
-    - platformio ci --project-conf=./platoformio.ini
+    - platformio ci --project-conf=./platformio.ini
