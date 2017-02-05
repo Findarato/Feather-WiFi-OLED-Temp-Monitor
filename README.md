@@ -1,6 +1,8 @@
 # Web Accessable Temperature gague /w OLED readout
 
-[![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+
+PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
 
 ## Now with Toggle switches
 
@@ -15,13 +17,17 @@ If your into using the terminal
 arduino --install-library "Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor"
 ```
 
+```bash
+platformio ci --project-conf=platformio.ini ./src
+```
+
 Libraries Needed to be installed
 
-- [AdaFruitGFX][432f0407]
-- [ArduinoJSON][92f91ab3]
-- [AdaFruit SSD1306][e13d6d0d]
-- [AdaFruit DHT Sensor Library][b4a05a48]
-- [Adafruit Unified Sensor Driver][b47100f1]
+- :octopus: [AdaFruitGFX][432f0407]
+- :octopus: [ArduinoJSON][92f91ab3]
+- :octopus: [AdaFruit SSD1306][e13d6d0d]
+- :octopus: [AdaFruit DHT Sensor Library][b4a05a48]
+- :octopus: [Adafruit Unified Sensor Driver][b47100f1]
 
 [432f0407]: https://github.com/adafruit/Adafruit-GFX-Library "Github"
 [92f91ab3]: https://github.com/bblanchon/ArduinoJson "Github"
