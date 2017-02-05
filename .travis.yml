@@ -7,16 +7,10 @@ sudo: false
 cache:
     directories:
         - "~/.platformio"
-
-# env:
-#     - PLATFORMIO_CI_SRC=path/to/test/file.c
-#     - PLATFORMIO_CI_SRC=src_dir/AdvancedWebServerOLED.ino
-#     - PLATFORMIO_CI_SRC=path/to/test/directory
-
 install:
     - pip install -U platformio
     - platformio lib -g install 1
-#
+
 script:
     - cp ./src/Pubvars.h.temp ./src/Pubvars.h
     - platformio ci --project-conf=platformio.ini ./src
