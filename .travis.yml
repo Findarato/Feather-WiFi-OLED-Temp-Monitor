@@ -2,11 +2,11 @@ language: python
 python:
     - "2.7"
 sudo: false
+
 cache:
     directories:
         - "~/.platformio"
-script:
-    - platformio run
+
 install:
     - pip install -U platformio
     - platformio lib -g install 1
@@ -14,3 +14,6 @@ install:
 script:
     - cp ./src/Pubvars.h.temp ./src/Pubvars.h
     - platformio ci --project-conf=platformio.ini ./src
+
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
