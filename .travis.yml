@@ -1,16 +1,21 @@
-language: c
-before_install:
-  - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+language: python
+python:
+    - "2.7"
+
+# Cache PlatformIO packages using Travis CI container-based infrastructure
+sudo: false
+cache:
+    directories:
+        - "~/.platformio"
+
+# env:
+#     - PLATFORMIO_CI_SRC=path/to/test/file.c
+#     - PLATFORMIO_CI_SRC=src_dir/AdvancedWebServerOLED.ino
+#     - PLATFORMIO_CI_SRC=path/to/test/directory
+
 install:
-  - arduino --install-library 'Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor'
+    - pip install -U platformio
+    - platformio lib -g install 1
+
 script:
-  - /bin/cat $PWD/AdvancedWebServerOLED/Pubvars.h.temp > $PWD/AdvancedWebServerOLED/Pubvars.h
-  - build_platform esp8266
-  - gcc -coverage -O0 $PWD/AdvancedWebServerOLED/Pubvars.cpp -o Pubvars
-  - gcov $PWD/AdvancedWebServerOLED/Pubvars.cpp
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-notifications:
-  email:
-    on_success: change
-    on_failure: change
+    - platformio ci --board=<ID_1> --board=<ID_2> --board=<ID_N>
