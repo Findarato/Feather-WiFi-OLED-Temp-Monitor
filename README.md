@@ -4,6 +4,9 @@ Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-
 
 PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&amp;utm_campaign=Badge_Grade)
+
+
 ## Now with Toggle switches
 
 A :radio_button: Shows IP<br>
