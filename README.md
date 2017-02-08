@@ -4,8 +4,7 @@ Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-
 
 PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&amp;utm_campaign=Badge_Grade)
-
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&utm_medium=referral&utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&utm_campaign=Badge_Grade)
 
 ## Now with Toggle switches
 
@@ -26,11 +25,15 @@ platformio ci --project-conf=platformio.ini ./src
 
 Libraries Needed to be installed
 
-- :octopus: [AdaFruitGFX][432f0407]
-- :octopus: [ArduinoJSON][92f91ab3]
-- :octopus: [AdaFruit SSD1306][e13d6d0d]
-- :octopus: [AdaFruit DHT Sensor Library][b4a05a48]
-- :octopus: [Adafruit Unified Sensor Driver][b47100f1]
+:octopus: [AdaFruitGFX][432f0407]
+
+:octopus: [ArduinoJSON][92f91ab3]
+
+:octopus: [AdaFruit SSD1306][e13d6d0d]
+
+:octopus: [AdaFruit DHT Sensor Library][b4a05a48]
+
+:octopus: [Adafruit Unified Sensor Driver][b47100f1]
 
 [432f0407]: https://github.com/adafruit/Adafruit-GFX-Library "Github"
 [92f91ab3]: https://github.com/bblanchon/ArduinoJson "Github"
