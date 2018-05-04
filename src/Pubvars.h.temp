@@ -26,7 +26,7 @@ class Varstore {
     const char* _ssid               =   "SSID";                     // Enter your SSID
     const char* _password           =   "PASSWORD";                 // Enter your Password
     const char* _deviceName         =   "DeviceID";                 // Enter your Device Name
-    const int _deviceID             =   3;                          // This is for My Specific use case
+    const int _deviceID             =   99;                         // This is for My Specific use case
     const int _webServerPort        =   80;                         // The port for web server
     char* _hardwareID;                                              //MAC Address of the board
 };
