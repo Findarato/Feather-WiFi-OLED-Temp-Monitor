@@ -173,24 +173,13 @@ bool readRequest(WiFiClient& client) {
 
 JsonObject& prepareResponse(JsonBuffer& jsonBuffer) {
         JsonObject& root = jsonBuffer.createObject();
-        JsonArray& JSONDeviceName = root.createNestedArray("DeviceName");
-        JSONDeviceName.add(vault.readDeviceName());
-        JsonArray& JSONDeviceID = root.createNestedArray("DeviceID");
-        // JSONDeviceID.add(vault.readDeviceID());
-        JSONDeviceID.add(vault.readDeviceID());
-        JsonArray& JSONHardwareID = root.createNestedArray("HardwareID");
-        JSONHardwareID.add(hardwareID);
-        JsonArray& JSONtempF = root.createNestedArray("tempF");
-        JSONtempF.add(pfTempF);
-        JsonArray& JSONtempC = root.createNestedArray("tempC");
-        JSONtempC.add(pfTemp);
-        JsonArray& JSONhumiValues = root.createNestedArray("humidity");
-        JSONhumiValues.add(pfHum);
-        JsonArray& JSONdewpValues = root.createNestedArray("dewpoint");
-        JSONdewpValues.add(pfDew);
-        JsonArray& JSONsystemV = root.createNestedArray("Systemv");
-        JSONsystemV.add(pfVcc/1000,3);
-        JSONsystemV.add(battery/1000,3);
+        root["DeviceName"] = vault.readDeviceName();
+        root["DeviceID"] = vault.readDeviceID();
+        root["HardwareID"] = hardwareID;
+        root["tempF"] = pfTempF;
+        root["tempC"] = pfTemp;
+        root["humidity"] = pfHum;
+        root["dewpoint"] = pfDew;
         return root;
 }
 
