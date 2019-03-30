@@ -101,8 +101,11 @@ bool readRequest(WiFiClient &client)
 
 JsonDocument prepareResponse()
 {
+    long rssi = WiFi.RSSI();
+    Serial.print("RSSI:");
+    Serial.println(rssi);
     StaticJsonDocument<200> jsonDoc;
-    // jsonDoc = jsonBuffer.createObject();
+    jsonDoc["rssi"] = rssi;
     jsonDoc["DeviceName"] = vault.readDeviceName();
     jsonDoc["DeviceID"] = vault.readDeviceID();
     jsonDoc["HardwareID"] = hardwareID;
