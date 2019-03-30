@@ -61,6 +61,6 @@ char* Varstore::readHardwareID() {
  * @param  id                      MAC Address (00:00:00:00:00:00:00)
  * @return                         [description]
  */
-char* Varstore::setHardwareID(char* id) {
+void Varstore::setHardwareID(char* id) {
     _hardwareID = id;
 }

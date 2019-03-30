@@ -10,11 +10,11 @@
 #include "DHT.h"
 #include "Pubvars.h"
 // needed to avoid link error on ram check
-extern "C" {
-#include "user_interface.h"
-uint16 readvdd33(void);
-}
-ADC_MODE(ADC_VCC);
+// extern "C" {
+// #include "user_interface.h"
+// uint16 readvdd33(void);
+// }
+// ADC_MODE(ADC_VCC);
 
 
 // Defines

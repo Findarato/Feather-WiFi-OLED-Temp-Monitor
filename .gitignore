@@ -1,4 +1,5 @@
 .pioenvs
+.pioenvs/*
 Pubvars.h
 .clang_complete
 {
@@ -11,3 +12,6 @@ Pubvars.h
 }
 .piolibdeps
 .gcc-flags.json
+
+.vscode
+.vscode/*
