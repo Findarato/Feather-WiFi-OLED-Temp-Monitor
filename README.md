@@ -1,12 +1,9 @@
 # Web Accessable Temperature gague /w OLED readout
 
-Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&utm_medium=referral&utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&utm_campaign=Badge_Grade)
 
-PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) No-OLED: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) 
 
-No-OLED: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) 
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&utm_medium=referral&utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&utm_campaign=Badge_Grade)
 
 ## Now with Toggle switches
 
