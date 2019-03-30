@@ -1,16 +1,14 @@
 # Web Accessable Temperature gague /w OLED readout
 
-Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+Master: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![codecov](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor/branch/master/graph/badge.svg)](https://codecov.io/gh/Findarato/Feather-WiFi-OLED-Temp-Monitor) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&utm_medium=referral&utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&utm_campaign=Badge_Grade)
 
-PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
+### Branches
+PlatformIO: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=PlatformIO)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) 
 
-NO-OLED: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=No-OLED)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor)
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/650fb27b1893410a838bc3575aedde91)](https://www.codacy.com/app/Findarato/Feather-WiFi-OLED-Temp-Monitor?utm_source=github.com&utm_medium=referral&utm_content=Findarato/Feather-WiFi-OLED-Temp-Monitor&utm_campaign=Badge_Grade)
-
+No-OLED: [![Build Status](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor.svg?branch=master)](https://travis-ci.org/Findarato/Feather-WiFi-OLED-Temp-Monitor) 
 
 
-## Now with Toggle switches
+## Now with Toggle switches for OLED version
 
 A :radio_button: Shows IP<br>
 B :radio_button: Shows Temperature
@@ -20,12 +18,9 @@ There are a few libraries you will need, and they are listed below. Ensure they 
 If your into using the terminal
 
 ```bash
-arduino --install-library "Adafruit GFX Library,ArduinoJson,Adafruit SSD1306,DHT sensor library,Adafruit Unified Sensor"
-```
-
-```bash
 platformio ci --project-conf=platformio.ini ./src
 ```
+Mainly setup for PlatformIO building.  Could still be used with arduino, but libraries would have to manually be installed
 
 Libraries Needed to be installed
 
