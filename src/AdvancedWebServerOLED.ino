@@ -1,6 +1,5 @@
 #include <SPI.h>
 #include <Wire.h>
-#include <ArduinoJson.h>
 #include <Adafruit_Sensor.h>
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
@@ -8,12 +7,7 @@
 #include "DHT.h"
 #include "Pubvars.h"
 
-// needed to avoid link error on ram check
-// extern "C" {
-// #include "user_interface.h"
-// uint16 readvdd33(void);
-// }
-// ADC_MODE(ADC_VCC);
+#include <ArduinoJson.h>
 
 // Defines
 #define DHTPIN 14
@@ -124,6 +118,7 @@ void writeResponse(WiFiClient &client, JsonDocument json)
     client.println("HTTP/1.1 200 OK");
     client.println("Content-Type: application/json");
     client.println("Connection: close");
+    client.println(measureJsonPretty(json));
     client.println();
     serializeJsonPretty(json, client);
 }
