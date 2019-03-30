@@ -99,12 +99,11 @@ bool readRequest(WiFiClient &client)
     return false;
 }
 
-JsonDocument prepareResponse()
+JsonDocument prepareResponse(JsonDocument jsonDoc)
 {
     long rssi = WiFi.RSSI();
     Serial.print("RSSI:");
     Serial.println(rssi);
-    StaticJsonDocument<200> jsonDoc;
     jsonDoc["rssi"] = rssi;
     jsonDoc["DeviceName"] = vault.readDeviceName();
     jsonDoc["DeviceID"] = vault.readDeviceID();
@@ -113,6 +112,7 @@ JsonDocument prepareResponse()
     jsonDoc["tempC"] = pfTemp;
     jsonDoc["humidity"] = pfHum;
     jsonDoc["dewpoint"] = pfDew;
+
     return jsonDoc;
 }
 
@@ -170,9 +170,12 @@ void setup()
 
     // Start the server
     server.begin();
+
+    Serial.println("Server started");
+    Serial.println();
+    Serial.print(F("Please connect to http://"));
     Serial.println("IP Address: ");
     Serial.print(WiFi.localIP());
-    Serial.println("Server started");
 
 }
 
@@ -185,8 +188,9 @@ void loop()
         if (success)
         {
             delay(1000); // Wait a second to ensure that we do not overload the seonsor
-            readTempValues();
-            JsonDocument json = prepareResponse();
+            // readTempValues();
+            StaticJsonDocument<500> jsonDoc;
+            JsonDocument json = prepareResponse(jsonDoc);
             writeResponse(client, json);
         }
         delay(10); // pause 10 milliseconds and then kill the connection
